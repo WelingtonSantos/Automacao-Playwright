@@ -3,9 +3,9 @@ import { Login } from "./loginPage";
 
 export class BasePage {
     
-    private readonly page: Page
-    private readonly registro: Locator
-    private readonly login: Locator
+    protected readonly page: Page
+    protected readonly registro: Locator
+    protected readonly login: Locator
 
     constructor(page: Page){
         this.page = page
