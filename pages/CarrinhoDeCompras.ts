@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { Step } from "../helpers/test-step-decorator";
 
 export class Carrinho {
 
@@ -18,14 +19,25 @@ export class Carrinho {
 
     }
 
+    /**
+     * Esse método ainda está melhorado, a ideia e validar os status
+     */
+    @Step
     async validaAndamento(){
         await expect(this.orderProgress.getByRole('listitem').filter({has: this.page.locator('.active-step')}).getByText('Cart')).toBeVisible()
     }
-
+    /**
+     * Valida se produto que foi adicionado é o mesmo que está no carrinho, com base no arquivo env
+     */
+    @Step
     async validaProdutoNoCarrinho(){
         expect (this.produtoNoCarrinho.getByRole('cell', {name: process.env.LIVRO_DESEJADO!})).toBeTruthy()
     }
 
+    /**
+     * Concorda com termos selecionando o checkbox e clica no botão checkout
+     */
+    @Step
     async concordaComOsTermosEClicaNoBotaoCheckout(){
         await this.termosDeServico.check({force:true})
         await this.botaoCheckOut.click()

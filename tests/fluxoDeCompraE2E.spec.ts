@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { Login } from '../pages/loginPage';
 import { Livros } from '../pages/livrosPage';
 import { Carrinho } from '../pages/CarrinhoDeCompras';
+import { Checkout } from '../pages/fazChekoutPage';
 
 test.describe('Fluxo de compra ponta a ponta', () => {
 
@@ -14,6 +15,7 @@ test.describe('Fluxo de compra ponta a ponta', () => {
         const realizaLogin = new Login(page)
         const produtoLivro = new Livros(page)
         const carrinho = new Carrinho(page)
+        const checkout = new Checkout(page)
 
         //Realizar o Login, essa classe herda funções de validação da pagina, e acesso a menus de BasePage e Header
         await realizaLogin.validaOCarregamentoDaPagina()
@@ -31,6 +33,11 @@ test.describe('Fluxo de compra ponta a ponta', () => {
         //Valida o produto no carrinho com base no parametro do env - nesse caso livro
         await carrinho.validaProdutoNoCarrinho()
         await carrinho.concordaComOsTermosEClicaNoBotaoCheckout()
+        await checkout.preencherEnderecoDeCobranca()
+        await checkout.enderecoRetiradaRecebimento(false)
+        await checkout.metodoDeEntrega()
+        await checkout.metodoDePagamento()
+        await checkout.informacaoDePagamento()
 
     });
 })
