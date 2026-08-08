@@ -3,6 +3,7 @@ import { Login } from '../pages/loginPage';
 import { Livros } from '../pages/livrosPage';
 import { Carrinho } from '../pages/CarrinhoDeCompras';
 import { Checkout } from '../pages/fazChekoutPage';
+import { log } from 'console';
 
 test.describe('Fluxo de compra ponta a ponta', () => {
 
@@ -38,6 +39,10 @@ test.describe('Fluxo de compra ponta a ponta', () => {
         await checkout.metodoDeEntrega()
         await checkout.metodoDePagamento()
         await checkout.informacaoDePagamento()
+        await checkout.confirmaOrdem()
+
+        //Realiza o logout 
+        await realizaLogin.logOut()
 
     });
 })
